@@ -1,0 +1,25 @@
+<h1>ALL books</h1>
+
+
+<div class="book-list">
+    {{#if locals.books.length }}
+        <p><strong>Total books: {{locals.books.length}}</strong></p>
+        {{#each locals.books}}
+            <div class="book">
+                <div>
+                    <p class="id">ID: {{this.id}}</p>
+                    <p class="title">Title: {{this.title}}</p>
+                    <p class="author">Author: {{this.author}}</p>
+                    <p class="loans">Loaned times: {{this.loans}}</p>
+                </div>
+
+                    <div>
+                        <a class="btn" href="/loans/new/{{this.id}}">loan this book</span></a>
+                    </div>
+
+            </div>
+        {{/each}}
+    {{else}}
+        <p>no books yet...</p>
+    {{/if}}
+</div>

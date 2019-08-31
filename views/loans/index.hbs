@@ -1,0 +1,23 @@
+<h1>My loans</h1>
+
+<div class="book-list">
+    {{#if locals.loans.length }}
+        <p><strong>Total books loaned: {{locals.loans.length}}</strong></p>
+        {{!-- <p><strong>Most loaned:</strong> {{locals.book_champ.title}} by {{locals.book_champ.author}} </p> --}}
+        {{#each locals.loans}}
+            <div class="book">
+                <div>
+                    <p class="title">Title: {{this.title}}</p>
+                    <p class="name">Friend: {{this.name}}</p>
+                    <p class="contact">Contact: {{this.contact}}</p>
+                    <p>Loaned on: {{this.loan_date}}</p>
+                </div>
+
+                    <a class="btn" href="/loans/delete/{{this.id}}">return this book</span></a>
+                
+            </div>
+        {{/each}}
+    {{else}}
+        <p>no loans yet...</p>
+    {{/if}}
+</div>
