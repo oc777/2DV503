@@ -3,13 +3,15 @@
 # Requirements:
 
 [node.js](https://nodejs.org/en/)
+
 [git](https://git-scm.com/downloads)
+
 
 # Running application locally
 
 - install `node` and `git`
 - run `git clone https://github.com/oc777/2DV503.git` OR download source code directly from GitHub
-- `cd` into directory with the project
+- from terminal/console `cd` into directory with the project
 - run `npm install` and `npm start`
 - navigate to `localhost:3000` in your browser
 

@@ -11,7 +11,7 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
       throw err
     } else {
         console.log('Connected to the SQLite database')
-        //createTables()
+        createTables()
     }
 })
 
@@ -109,21 +109,14 @@ const insertData = () => {
 }
 
 db.createBook = (data) => {
-    console.log('Creating new book')
-    //let q = 'INSERT INTO books (author, title, published) VALUES (?,?,?)'
     db.run(q_insert_book, [data.author,data.title,data.published])
 }
 
 db.createFriend = (data) => {
-    console.log('Creating new friend')
-    //let q = 'INSERT INTO friends (name, contact) VALUES (?,?)'
     db.run(q_insert_friend, [data.name,data.contact])
 }
 
 db.createLoan = (data, res) => {
-    console.log('Creating new loan')
-    //let loans_q = 'INSERT INTO Loans (book_id, friend_id, loan_date) VALUES (?,?,?)'
-    //let books_q = 'UPDATE books SET loans = loans + 1 WHERE book_id = ?'
     let today = new Date().toISOString()
     db.serialize(function () {
         db.run('BEGIN TRANSACTION;')
@@ -156,51 +149,37 @@ db.getLoan = (id, res) => {
 }
 
 db.returnLoan = (id, res) => {
-    console.log('Returning a loan')
-    //let q = 'DELETE FROM loans WHERE book_id = ?'
     db.run(q_delete_loan, [id], (err, result) => {
         res.redirect('/')
     })
 }
 
 db.getBook = (id, res) => {
-    //let q = 'SELECT * FROM books WHERE book_id = ?'
     db.get(q_get_book, [id], (err, row) => {
         if (err) {
             res.status(400).json({"error":err.message})
             return
         }
-        // res.json({
-        //     "message":"success",
-        //     "data":row
-        // })
         return row
     })
 }
 
 db.getFriend = (id, res) => {
-    //let q = 'SELECT * FROM friends WHERE friend_id = ?'
     db.get(q_get_friend, [id], (err, row) => {
         if (err) {
             res.status(400).json({"error":err.message})
             return
         }
-        // res.json({
-        //     "message":"success",
-        //     "data":row
-        // })
         return row
     })
 }
 
 db.getAllBooks = (res) => {
-    //let q = 'SELECT * FROM books'
     db.all(q_get_all_books, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message})
             return
         }
-        
         let locals = {books: rows.map(
             book => ({
                 id: book.book_id,
@@ -209,13 +188,11 @@ db.getAllBooks = (res) => {
                 loans: book.loans
             })
         )}
-        //console.log(locals)
         res.render('books', { locals })
     })
 }
 
 db.getAllFriends = (res) => {
-    //let q = 'SELECT * FROM friends'
     db.all(q_get_all_friends, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message})
@@ -225,21 +202,12 @@ db.getAllFriends = (res) => {
     })
 }
 
-
 db.getAllLoans = (res) => {
-    // let q = `SELECT
-    //     book.title,
-    //     friend.name
-    //     FROM loans
-    //     INNER JOIN books ON books.book_id = loans.book_id
-    //     INNER JOIN friends ON friends.friend_id = loans.friend_id`
-
     db.all(q_get_all_loans, (err, rows) => {
         if (err) {
             res.status(400).json({"error":err.message})
             return
         }
-
         let locals = {loans: rows.map(
             loan => ({
                 id: loan.book_id,
@@ -260,7 +228,6 @@ db.isBookLoaned = (id) => {
             console.log('book already loaned')
             loaned = true
         }
-
         return loaned
     })
 }
@@ -289,12 +256,9 @@ db.getBooksAndLoans = (res) => {
                     author: result.author
                 }
             }
-
             res.render('books', { locals })
         })
-
     })
-
 }
 
 module.exports = db

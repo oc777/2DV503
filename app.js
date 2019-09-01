@@ -3,9 +3,7 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const exphbs = require('express-handlebars')
-const routes = require('./server/server.js')
-
-
+const routes = require('./routes/router.js')
 
 const app = express()
 const port = process.env.PORT || 3000
@@ -14,8 +12,6 @@ const port = process.env.PORT || 3000
 app.use(bodyParser.urlencoded({ extended: true }))
 // Parse json
 app.use(bodyParser.json())
-
-
 
 // Configure rendering engine, with change extension to .hbs
 app.use(express.static(__dirname + '/public'))
@@ -28,10 +24,8 @@ app.engine('hbs', exphbs({
 // Setup view engine.
 app.set('view engine', 'hbs')
 
-
 // Define routes and API.
 app.use('/', routes)
-
 
 // catch 404
 app.use((req, res, next) => {
