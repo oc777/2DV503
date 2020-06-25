@@ -1,4 +1,4 @@
-2DV513 - oc222ba - Final Project
+
 
 # Requirements:
 
@@ -10,7 +10,7 @@
 # Running application locally
 
 - install `node` and `git`
-- run `git clone https://github.com/oc777/2DV503.git` OR download source code directly from GitHub
+- run `git clone https://github.com/oc777/MyBooks-CRUD.git` OR download source code directly from GitHub
 - from terminal/console `cd` into directory with the project
 - run `npm install` and `npm start`
 - navigate to `localhost:3000` in your browser
